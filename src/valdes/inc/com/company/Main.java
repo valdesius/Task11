@@ -16,8 +16,8 @@ public class Main {
         return str;
     }
 
-    private static String[] divideTextIntoSentences(String sourceText){
-        StringTokenizer stringTokenizer = new StringTokenizer(sourceText,"\n:.!?",true);
+    private static String[] divideTextIntoSentences(String sourceText) {
+        StringTokenizer stringTokenizer = new StringTokenizer(sourceText, "\n:.!?", true);
         String last = "";
         String current = "";
         String[] interrogativeSentence = new String[0];
@@ -29,7 +29,7 @@ public class Main {
             if (current.equals("?")) {
                 String[] interrogativeSentence2 = new String[interrogativeSentence.length + 1];
                 System.arraycopy(interrogativeSentence, 0, interrogativeSentence2, 0, interrogativeSentence.length);
-                interrogativeSentence2[interrogativeSentence.length] = last+current;
+                interrogativeSentence2[interrogativeSentence.length] = last + current;
                 interrogativeSentence = new String[interrogativeSentence2.length];
                 System.arraycopy(interrogativeSentence2, 0, interrogativeSentence, 0, interrogativeSentence.length);
             }
@@ -45,7 +45,11 @@ public class Main {
                 System.out.println(interrogativeSentence[i]);
             }
         } else {
-            System.out.printf("Не найдено ни одного вопросительного предложения!");
+            try {
+                throw new MissingInterrogativeSentencesException();
+            } catch (MissingInterrogativeSentencesException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
